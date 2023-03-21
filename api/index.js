@@ -1,3 +1,4 @@
+
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
@@ -14,6 +15,7 @@ const fs = require('fs');
 const app = express();
 
 const bcryptSalt = bcrypt.genSaltSync(10);
+
 const jwtSecret = 'codes12345';
 
 app.use(express.json());
@@ -26,12 +28,14 @@ app.use(cors({
 
 
 //connection to database mongoose
-mongoose.connect("mongodb://localhost:27017/basiccrud", {
+mongoose.connect("mongodb://localhost:27017/gaccom", {
+
   useNewUrlParser: true,
 });
 mongoose.connection.once("open", () => {
   console.log("connected to mongo");
 });
+
 
 function getUserDataFromReq(req) {
     return new Promise ((resolve, reject) => {
@@ -207,6 +211,8 @@ app.post('/bookings', async (req,res) => {
 app.get('/bookings', async (req,res) => {
     const userData = await getUserDataFromReq(req);
     res.json( await Booking.find({user:userData.id}).populate('place'));
+
+  
 });
 
 app.listen(4000);
