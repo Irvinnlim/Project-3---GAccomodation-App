@@ -58,7 +58,7 @@ app.post('/register', async(req,res) => {
     const userDoc = await User.create({
         name,
         email,
-        passowrd:bcrypt.hashSync(password,bcryptSalt),
+        passowrd:bcrypt.hashSync(passowd,bcryptSalt),
     });
     res.json(userDoc);
 } catch (e) {
@@ -75,8 +75,8 @@ app.post('/login', async (req,res) => {
         if (passOk) {
             jwt.sign({
                 email:userDoc.email, 
-                id:userDoc._id,
-            }, jwtSecret, {}, (err,token) => {
+                   id:userDoc._id
+                    }, jwtSecret, {}, (err,token) => {
                 if (err) throw err;
                 res.cookie('token',token).json(userDoc)
             });
