@@ -1,11 +1,11 @@
-import React, { useContext } from "react";
-import { UserContext } from "";
+import { useContext, useState} from "react";
+import { UserContext } from "../UserContext.jsx";
 import { Link, Navigate, useParams } from "react-router-dom";
+import axios from "axios";
 
 export default function AccountPage() {
   const [redirect, setRedirect] = useState(null);
   const { ready, user, setUser } = useContext(UserContext);
-
   let { subpage } = useParams();
   if (subpage === undefined) {
     subpage = "profile";

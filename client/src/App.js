@@ -13,13 +13,9 @@ function App() {
         <Route index element={<IndexPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
-<<<<<<< Updated upstream
         <Route path="/account/:subpage?" element={<AccountPage />} />
-      </Route>
-=======
         <Route path="/account/:subpage/:action" element={<AccountPage />} />
       </Route> 
->>>>>>> Stashed changes
     </Routes>
   );
 }
