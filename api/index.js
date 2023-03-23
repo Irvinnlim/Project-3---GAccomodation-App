@@ -10,6 +10,7 @@ const cookieParser = require("cookie-parser");
 const imageDownloader = require("image-downloader");
 const multer = require("multer");
 const fs = require("fs");
+const PORT = 4000;
 
 require("dotenv").config();
 const app = express();
@@ -52,7 +53,7 @@ app.post("/register", async (req, res) => {
     const userDoc = await User.create({
       name,
       email,
-      passowrd: bcrypt.hashSync(passowd, bcryptSalt),
+      password: bcrypt.hashSync(password, bcryptSalt),
     });
     res.json(userDoc);
   } catch (e) {
@@ -244,4 +245,6 @@ app.get("/bookings", async (req, res) => {
   res.json(await Booking.find({ user: userData.id }).populate("place"));
 });
 
-app.listen(4000);
+app.listen(PORT, () => {
+  console.log("listening on port", PORT);
+});
