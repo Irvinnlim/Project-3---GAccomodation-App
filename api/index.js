@@ -20,7 +20,7 @@ const jwtSecret = "codes12345";
 
 app.use(express.json());
 app.use(cookieParser());
-app.use("/uploads", express.static(__dirname + "uploads"));
+app.use("/uploads", express.static(__dirname + "/uploads"));
 app.use(
   cors({
     credentials: true,
@@ -93,7 +93,7 @@ app.get("/profile", (req, res) => {
   if (token) {
     jwt.verify(token, jwtSecret, {}, async (err, userData) => {
       if (err) throw err;
-      const { name, email, _id } = await User.findId(userData.id);
+      const { name, email, _id } = await User.findById(userData.id);
       res.json({ name, email, _id });
     });
   } else {
@@ -107,7 +107,7 @@ app.post("/logout", (req, res) => {
 
 app.post("/upload-by-link", async (req, res) => {
   const { link } = req.body;
-  const newName = "photo" + Data.now() + ".jpg";
+  const newName = "photo" + Date.now() + ".jpg";
   await imageDownloader.image({
     url: link,
     dest: __dirname + "/uploads/" + newName,
@@ -115,8 +115,8 @@ app.post("/upload-by-link", async (req, res) => {
   res.json(newName);
 });
 
-const photosmiddleware = multer({ dest: "uploads" });
-app.post("/upload", photosmiddleware.array("photos", 100), (req, res) => {
+const photosMiddleware = multer({ dest: "uploads" });
+app.post("/upload", photosMiddleware.array("photos", 100), (req, res) => {
   const uploadedFiles = [];
   for (let i = 0; i < req.files.length; i++) {
     const { path, originalname } = req.files[i];
