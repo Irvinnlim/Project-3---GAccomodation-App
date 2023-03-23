@@ -1,7 +1,6 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
-require("dotenv").config();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("./models/User.js");
@@ -11,26 +10,29 @@ const cookieParser = require("cookie-parser");
 const imageDownloader = require("image-downloader");
 const multer = require("multer");
 const fs = require("fs");
+
+require("dotenv").config();
 const app = express();
+
 const bcryptSalt = bcrypt.genSaltSync(10);
 const jwtSecret = "codes12345";
+
 app.use(express.json());
 app.use(cookieParser());
 app.use("/uploads", express.static(__dirname + "uploads"));
 app.use(
   cors({
     credentials: true,
-    origin: "http://127.0.0.1:5173",
+    origin: "http://localhost:3000",
   })
 );
+
 //connection to database mongoose
 mongoose.connect(process.env.MONGO_URL);
-// mongoose.connect("mongodb://localhost:27017/gaccom", {
-//   useNewUrlParser: true,
-// });
-// mongoose.connection.once("open", () => {
-//   console.log("connected to mongo");
-// });
+mongoose.connection.once("open", () => {
+  console.log("connected to mongo");
+});
+
 function getUserDataFromReq(req) {
   return new Promise((resolve, reject) => {
     jwt.verify(req.cookies.token, jwtSecret, {}, async (err, userData) => {
@@ -39,9 +41,11 @@ function getUserDataFromReq(req) {
     });
   });
 }
+
 app.get("/test", (req, res) => {
   res.json("test ok");
 });
+
 app.post("/register", async (req, res) => {
   const { name, email, password } = req.body;
   try {
@@ -54,7 +58,9 @@ app.post("/register", async (req, res) => {
   } catch (e) {
     res.status(422).json(e);
   }
+  console.log(req.body);
 });
+
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
   const userDoc = await User.findOne({ email });
@@ -80,6 +86,7 @@ app.post("/login", async (req, res) => {
     res, json("not found");
   }
 });
+
 app.get("/profile", (req, res) => {
   const { token } = req.cookies;
   if (token) {
@@ -92,9 +99,11 @@ app.get("/profile", (req, res) => {
     res.json(null);
   }
 });
+
 app.post("/logout", (req, res) => {
   res.cookie("token", "").json(true);
 });
+
 app.post("/upload-by-link", async (req, res) => {
   const { link } = req.body;
   const newName = "photo" + Data.now() + ".jpg";
@@ -104,6 +113,7 @@ app.post("/upload-by-link", async (req, res) => {
   });
   res.json(newName);
 });
+
 const photosmiddleware = multer({ dest: "uploads" });
 app.post("/upload", photosmiddleware.array("photos", 100), (req, res) => {
   const uploadedFiles = [];
@@ -117,6 +127,7 @@ app.post("/upload", photosmiddleware.array("photos", 100), (req, res) => {
   }
   res.json(uploadedFiles);
 });
+
 app.post("/places", (req, res) => {
   const { token } = req.cookies;
   const {
@@ -149,6 +160,7 @@ app.post("/places", (req, res) => {
     res.json(placeDoc);
   });
 });
+
 app.get("/user-places", (req, res) => {
   const { token } = req.cookies;
   jwt.verify(token, jwtSecret, {}, async (err, userData) => {
@@ -156,10 +168,12 @@ app.get("/user-places", (req, res) => {
     res.json(await Place.find({ owner: id }));
   });
 });
+
 app.get("/places/:id", async (req, res) => {
   const { id } = req.params;
   res.json(await Place.findid(id));
 });
+
 app.put("/places", async (req, res) => {
   const { token } = req.cookies;
   const {
@@ -197,9 +211,11 @@ app.put("/places", async (req, res) => {
     }
   });
 });
+
 app.get("/places", async (req, res) => {
   res.json(await Place.find());
 });
+
 app.post("/bookings", async (req, res) => {
   const userData = await getUserDataFromReq(req);
   const { place, checkIn, checkOut, numberOfGuests, name, phone, price } =
@@ -222,8 +238,10 @@ app.post("/bookings", async (req, res) => {
       throw err;
     });
 });
+
 app.get("/bookings", async (req, res) => {
   const userData = await getUserDataFromReq(req);
   res.json(await Booking.find({ user: userData.id }).populate("place"));
 });
+
 app.listen(4000);
