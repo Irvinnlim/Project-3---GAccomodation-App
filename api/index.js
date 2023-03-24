@@ -181,7 +181,7 @@ app.put("/places", async (req, res) => {
     id,
     title,
     address,
-    addedPhotos,
+    photos:addedPhotos,
     description,
     perks,
     extraInfo,
