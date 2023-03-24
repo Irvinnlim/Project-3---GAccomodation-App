@@ -7,7 +7,6 @@ import { useParams, Navigate } from "react-router-dom";
 
 export default function PlacesFormPage() {
   const {id} = useParams();
-  console.log({id})
   const [title, setTitle] = useState();
   const [address, setAddress] = useState();
   const [addedPhotos, setAddedPhotos] = useState("");
