@@ -6,7 +6,7 @@ import AccountNav from "../AccountNav";
 import { useParams, Navigate } from "react-router-dom";
 
 export default function PlacesFormPage() {
-  const {id} = useParams();
+  const { id } = useParams();
   const [title, setTitle] = useState();
   const [address, setAddress] = useState();
   const [addedPhotos, setAddedPhotos] = useState("");
@@ -16,15 +16,15 @@ export default function PlacesFormPage() {
   const [checkIn, setCheckIn] = useState();
   const [checkOut, setCheckOut] = useState();
   const [maxGuests, setMaxGuests] = useState(1);
-  const [price,setPrice] = useState(100);
-  const [redirect,setRedirect] = useState(false);
+  const [price, setPrice] = useState(100);
+  const [redirect, setRedirect] = useState(false);
 
   useEffect(() => {
     if (!id) {
       return;
     }
-    axios.get("/places/"+id).then(response => {
-      const {data} = response;
+    axios.get("/places/" + id).then((response) => {
+      const { data } = response;
       setTitle(data.title);
       setAddress(data.address);
       setAddedPhotos(data.photos);
@@ -34,8 +34,9 @@ export default function PlacesFormPage() {
       setCheckIn(data.checkIn);
       setCheckOut(data.checkOut);
       setMaxGuests(data.maxGuests);
+      setPrice(data.price);
     });
-  },[id]);
+  }, [id]);
 
   function inputHeader(text) {
     return <h2 className="text-2xl mt-4">{text}</h2>;
@@ -59,30 +60,31 @@ export default function PlacesFormPage() {
 
     const placeData = {
       title,
-      address, 
+      address,
       addedPhotos,
-      description, 
-      perks, 
+      description,
+      perks,
       extraInfo,
-      checkIn, 
-      checkOut, 
+      checkIn,
+      checkOut,
       maxGuests,
-      price, 
+      price,
     };
     //to check if have existing record
     if (id) {
-      await axios.put('/places', {
-        id, ...placeData
+      await axios.put("/places", {
+        id,
+        ...placeData,
       });
       setRedirect(true);
     } else {
-      await axios.post('/places', placeData);
+      await axios.post("/places", placeData);
       setRedirect(true);
     }
   }
 
   if (redirect) {
-    return <Navigate to={'/account/places'} />
+    return <Navigate to={"/account/places"} />;
   }
 
   return (
@@ -152,6 +154,14 @@ export default function PlacesFormPage() {
               value={maxGuests}
               onChange={(ev) => setMaxGuests(ev.target.value)}
             />
+          </div>
+          <div className="mt-2 -mb-1">
+            <h3>Price per night</h3>
+            <input
+              type="number"
+              value={price}
+              onChange={(ev) => setPrice(ev.target.value)}
+            ></input>
           </div>
         </div>
         <button className="primary my-4">Save</button>
