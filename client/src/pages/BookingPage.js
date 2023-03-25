@@ -7,7 +7,7 @@ import PlaceGallery from "../PlaceGallery";
 
 export default function BookingPage() {
   const { id } = useParams();
-  const [booking, setBooking] = useState();
+  const [booking, setBooking] = useState(null);
 
   useEffect(() => {
     if (id) {
