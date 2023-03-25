@@ -35,7 +35,6 @@ export default function PlacesFormPage() {
       setCheckOut(data.checkOut);
       setMaxGuests(data.maxGuests);
       setPrice(data.price);
-      
     });
   }, [id]);
 
@@ -133,7 +132,7 @@ export default function PlacesFormPage() {
           <div className="mt-2 -mb-1">
             <h3>Check in time</h3>
             <input
-              type="text"
+              type="time"
               value={checkIn}
               onChange={(ev) => setCheckIn(ev.target.value)}
               placeholder="13:00"
@@ -142,7 +141,7 @@ export default function PlacesFormPage() {
           <div className="mt-2 -mb-1">
             <h3>Check out time</h3>
             <input
-              type="text"
+              type="time"
               value={checkOut}
               onChange={(ev) => setCheckOut(ev.target.value)}
               placeholder="12:00"
@@ -163,14 +162,6 @@ export default function PlacesFormPage() {
               value={price}
               onChange={(ev) => setPrice(ev.target.value)}
             />
-          </div>
-          <div className="mt-2 -mb-1">
-            <h3>Price per night</h3>
-            <input
-              type="number"
-              value={price}
-              onChange={(ev) => setPrice(ev.target.value)}
-            ></input>
           </div>
         </div>
         <button className="primary my-4">Save</button>
