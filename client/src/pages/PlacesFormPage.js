@@ -35,6 +35,7 @@ export default function PlacesFormPage() {
       setCheckOut(data.checkOut);
       setMaxGuests(data.maxGuests);
       setPrice(data.price);
+      
     });
   }, [id]);
 
@@ -128,7 +129,7 @@ export default function PlacesFormPage() {
           "Check in&out times",
           "add check in and out times, remember to cater time for cleaning the room between guests"
         )}
-        <div className="grid gap-2 sm:grid-cols-3">
+        <div className="grid gap-2 grid-cols-2 md:grid-cols-4">
           <div className="mt-2 -mb-1">
             <h3>Check in time</h3>
             <input
@@ -153,6 +154,14 @@ export default function PlacesFormPage() {
               type="number"
               value={maxGuests}
               onChange={(ev) => setMaxGuests(ev.target.value)}
+            />
+          </div>
+          <div className="mt-2 -mb-1">
+            <h3>Price per night</h3>
+            <input
+              type="number"
+              value={price}
+              onChange={(ev) => setPrice(ev.target.value)}
             />
           </div>
           <div className="mt-2 -mb-1">
