@@ -101,7 +101,7 @@ export default function Header() {
             </Menu.Item>
             <Menu.Item>
               {({ active }) => (
-                <Link to={"/account/"} className={`${active && "bg-gray-200"}`}>
+                <Link to={"/account"} className={`${active && "bg-gray-200"}`}>
                   Account
                 </Link>
               )}

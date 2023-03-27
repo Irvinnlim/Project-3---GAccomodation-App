@@ -48,11 +48,14 @@ export default function PlacesPage() {
               <div className="grow-0 shrink">
                 <h2 className="text-xl">{place.title}</h2>
                 <p className="text-sm mt-2">{place.description}</p>
-                <p> Total price: ${place.price}</p>
-                <p className=""> Perks: ${place.perks}</p>
                 <form action="/admin/delete-product" method="POST">
-                  <input type="hidden" name="id" value=""/>
-                  <button type="submit" className="w-20 h-10 m-2 bg-cyan-400 rounded-2xl">Delete</button>
+                  <input type="hidden" name="id" value="" />
+                  <button
+                    type="submit"
+                    className="w-20 h-10 m-2 bg-cyan-400 rounded-2xl"
+                  >
+                    Delete
+                  </button>
                 </form>
               </div>
             </Link>
