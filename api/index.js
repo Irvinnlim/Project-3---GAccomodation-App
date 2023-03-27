@@ -214,26 +214,24 @@ app.get("/places", async (req, res) => {
 });
 
 app.post("/bookings", async (req, res) => {
-  const userData = await getUserDataFromReq(req);
-  const { place, checkIn, checkOut, numberOfGuests, name, phone, price } =
-    req.body;
-  Booking.create({
-    place,
-    checkIn,
-    checkOut,
-    numberOfGuests,
-    name,
-    phone,
-    price,
-    user: userData.id,
-  })
-    .then((err, doc) => {
-      if (err) throw err;
-      res.json(doc);
-    })
-    .catch((err) => {
-      throw err;
+  try {
+    const userData = await getUserDataFromReq(req);
+    const { place, checkIn, checkOut, numberOfGuests, name, phone, price } =
+      req.body;
+    const booking = await Booking.create({
+      place,
+      checkIn,
+      checkOut,
+      numberOfGuests,
+      name,
+      phone,
+      price,
+      user: userData.id,
     });
+    res.json(booking);
+  } catch (err) {
+    throw err;
+  }
 });
 
 app.get("/bookings", async (req, res) => {
