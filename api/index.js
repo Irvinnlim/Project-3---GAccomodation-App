@@ -209,6 +209,15 @@ app.put("/places", async (req, res) => {
   });
 });
 
+app.delete("/places/:id", async (req, res) => {
+  try {
+    const deletedPlace = await Place.findByIdAndRemove(req.params.id);
+    res.status(200).send(deletedPlace);
+  } catch (err) {
+    throw err;
+  }
+});
+
 app.get("/places", async (req, res) => {
   res.json(await Place.find());
 });
