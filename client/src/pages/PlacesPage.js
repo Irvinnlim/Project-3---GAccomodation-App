@@ -41,22 +41,18 @@ export default function PlacesPage() {
             <Link
               to={"/account/places/" + place._id}
               className="flex cursor-pointer m-2 gap-4 bg-gray-100 p-4 rounded-2xl"
+              key={place._id}
             >
               <div className="flex w-46 h-32 bg-gray-300 shrink-0">
                 <PlaceImg place={place} />
               </div>
               <div className="grow-0 shrink">
-                <h2 className="text-xl">{place.title}</h2>
-                <p className="text-sm mt-2">{place.description}</p>
-                <form action="/admin/delete-product" method="POST">
-                  <input type="hidden" name="id" value="" />
-                  <button
-                    type="submit"
-                    className="w-20 h-10 m-2 bg-cyan-400 rounded-2xl"
-                  >
-                    Delete
-                  </button>
-                </form>
+                <h2 className="text-xl">
+                  {place && place.title ? place.title : ""}
+                </h2>
+                <p className="text-sm mt-2">
+                  {place && place.description ? place.description : ""}
+                </p>
               </div>
             </Link>
           ))}

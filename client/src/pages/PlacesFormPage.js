@@ -18,6 +18,7 @@ export default function PlacesFormPage() {
   const [maxGuests, setMaxGuests] = useState(1);
   const [price, setPrice] = useState(100);
   const [redirect, setRedirect] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     if (!id) {
@@ -86,6 +87,17 @@ export default function PlacesFormPage() {
   if (redirect) {
     return <Navigate to={"/account/places"} />;
   }
+
+  const handleDelete = (id) => {
+    axios
+      .delete(`/places/${id}`)
+      .then(() => {
+        setRedirect(true);
+      })
+      .catch((err) => {
+        throw err;
+      });
+  };
 
   return (
     <div>
@@ -166,6 +178,14 @@ export default function PlacesFormPage() {
         </div>
         <button className="primary my-4">Save</button>
       </form>
+      {id && (
+        <button
+          className="bg-cyan-400 p-2 w-full text-white rounded-2xl"
+          onClick={() => handleDelete(id)}
+        >
+          Delete
+        </button>
+      )}
     </div>
   );
 }
