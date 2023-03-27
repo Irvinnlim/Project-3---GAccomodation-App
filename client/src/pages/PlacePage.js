@@ -4,6 +4,7 @@ import axios from "axios";
 import BookingWidget from "../BookingWidget";
 import PlaceGallery from "../PlaceGallery";
 import AddressLink from "../AddressLink";
+import Perks from "../Perks";
 
 export default function PlacePage() {
   const { id } = useParams();
