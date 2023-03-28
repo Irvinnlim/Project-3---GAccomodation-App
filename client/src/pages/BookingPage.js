@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Navigate, redirect, useParams } from "react-router-dom";
 import AddressLink from "../AddressLink";
 import BookingDates from "../BookingDates";
 import PlaceGallery from "../PlaceGallery";
@@ -8,6 +8,7 @@ import PlaceGallery from "../PlaceGallery";
 export default function BookingPage() {
   const { id } = useParams();
   const [booking, setBooking] = useState(null);
+  const [redirect, setRedirect] = useState("");
 
   useEffect(() => {
     if (id) {
