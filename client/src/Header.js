@@ -85,27 +85,39 @@ export default function Header() {
           </div>
           {!!user && <div>{user.name}</div>}
           <Menu.Items className="fixed flex flex-col right-8 text-center top-16 w-32 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-            <Menu.Item>
-              {({ active }) => (
-                <Link to={"/register"} className={`${active && "bg-gray-200"}`}>
-                  Signup
-                </Link>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <Link to={"/login"} className={`${active && "bg-gray-200"}`}>
-                  Login
-                </Link>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <Link to={"/account"} className={`${active && "bg-gray-200"}`}>
-                  Account
-                </Link>
-              )}
-            </Menu.Item>
+            {!user && (
+              <Menu.Item>
+                {({ active }) => (
+                  <Link
+                    to={"/register"}
+                    className={`${active && "bg-gray-200"}`}
+                  >
+                    Signup
+                  </Link>
+                )}
+              </Menu.Item>
+            )}
+            {!user && (
+              <Menu.Item>
+                {({ active }) => (
+                  <Link to={"/login"} className={`${active && "bg-gray-200"}`}>
+                    Login
+                  </Link>
+                )}
+              </Menu.Item>
+            )}
+            {user && (
+              <Menu.Item>
+                {({ active }) => (
+                  <Link
+                    to={"/account"}
+                    className={`${active && "bg-gray-200"}`}
+                  >
+                    Account
+                  </Link>
+                )}
+              </Menu.Item>
+            )}
           </Menu.Items>
         </Menu>
       </div>
