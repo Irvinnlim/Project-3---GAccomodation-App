@@ -1,12 +1,11 @@
 import axios from "axios";
 import { useContext, useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { UserContext } from "../UserContext";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [redirect, setRedirect] = useState(false);
   const { setUser } = useContext(UserContext);
 
   async function handleLoginSubmit(ev) {
@@ -15,14 +14,11 @@ export default function LoginPage() {
       const userInfo = await axios.post("/login", { email, password });
       setUser(userInfo);
       alert("Login successful");
-      setRedirect(true);
+
+      window.location.href = "/";
     } catch (e) {
       alert("Login failed");
     }
-  }
-
-  if (redirect) {
-    return <Navigate to={"/"} />;
   }
 
   return (
