@@ -243,6 +243,15 @@ app.post("/bookings", async (req, res) => {
   }
 });
 
+app.delete("/bookings/:id", async (req, res) => {
+  try {
+    const deletedBooking = await Booking.findByIdAndRemove(req.params.id);
+    res.status(200).send(deletedBooking);
+  } catch (err) {
+    throw err;
+  }
+});
+
 app.get("/bookings", async (req, res) => {
   const userData = await getUserDataFromReq(req);
   res.json(await Booking.find({ user: userData.id }).populate("place"));
