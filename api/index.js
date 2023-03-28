@@ -15,8 +15,6 @@ const PORT = 4000;
 require("dotenv").config();
 const app = express();
 
-const bcryptSalt = bcrypt.genSaltSync(10);
-const jwtSecret = "codes12345";
 
 app.use(express.json());
 app.use(cookieParser());
@@ -36,7 +34,7 @@ mongoose.connection.once("open", () => {
 
 function getUserDataFromReq(req) {
   return new Promise((resolve, reject) => {
-    jwt.verify(req.cookies.token, jwtSecret, {}, async (err, userData) => {
+    jwt.verify(req.cookies.token, process.env.jwtSecret, {}, async (err, userData) => {
       if (err) throw err;
       resolve(userData);
     });
@@ -70,7 +68,7 @@ app.post("/login", async (req, res) => {
           email: userDoc.email,
           id: userDoc._id,
         },
-        jwtSecret,
+        process.env.jwtSecret,
         {},
         (err, token) => {
           if (err) throw err;
@@ -88,7 +86,7 @@ app.post("/login", async (req, res) => {
 app.get("/profile", (req, res) => {
   const { token } = req.cookies;
   if (token) {
-    jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+    jwt.verify(token, process.env.jwtSecret, {}, async (err, userData) => {
       if (err) throw err;
       const { name, email, _id, userType } = await User.findById(userData.id);
       res.json({ name, email, _id, userType });
@@ -140,7 +138,7 @@ app.post("/places", (req, res) => {
     checkOut,
     maxGuests,
   } = req.body;
-  jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+  jwt.verify(token, process.env.jwtSecret, {}, async (err, userData) => {
     if (err) throw err;
     const placeDoc = await Place.create({
       owner: userData.id,
@@ -161,7 +159,7 @@ app.post("/places", (req, res) => {
 
 app.get("/user-places", (req, res) => {
   const { token } = req.cookies;
-  jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+  jwt.verify(token, process.env.jwtSecret, {}, async (err, userData) => {
     const { id } = userData;
     res.json(await Place.find({ owner: id }));
   });
@@ -187,7 +185,7 @@ app.put("/places", async (req, res) => {
     maxGuests,
     price,
   } = req.body;
-  jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+  jwt.verify(token, process.env.jwtSecret, {}, async (err, userData) => {
     if (err) throw err;
     const placeDoc = await Place.findById(id);
     if (userData.id === placeDoc.owner.toString()) {
