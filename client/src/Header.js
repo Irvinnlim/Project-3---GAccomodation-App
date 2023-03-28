@@ -6,6 +6,7 @@ import { Menu } from "@headlessui/react";
 export default function Header() {
   const { user } = useContext(UserContext);
 
+
   return (
     <header className="flex justify-between">
       <Link to={"/"} className="flex items-center gap-1">

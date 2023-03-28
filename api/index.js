@@ -44,12 +44,13 @@ function getUserDataFromReq(req) {
 }
 
 app.post("/register", async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, userType } = req.body;
   try {
     const userDoc = await User.create({
       name,
       email,
       password: bcrypt.hashSync(password, bcryptSalt),
+      userType,
     });
     res.json(userDoc);
   } catch (e) {
@@ -80,7 +81,7 @@ app.post("/login", async (req, res) => {
       res.status(422).json("pass not ok");
     }
   } else {
-    res, json("not found");
+    res.json("not found");
   }
 });
 
