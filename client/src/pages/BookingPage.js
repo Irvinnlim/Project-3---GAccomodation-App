@@ -24,6 +24,21 @@ export default function BookingPage() {
     return "";
   }
 
+  const handleDelete = (id) => {
+    axios
+      .delete(`/bookings/${id}`)
+      .then(() => {
+        setRedirect("/account/bookings/");
+      })
+      .catch((err) => {
+        throw err;
+      });
+  };
+
+  if (redirect) {
+    return <Navigate to={redirect} />;
+  }
+
   return (
     <div className="my-8">
       <h1 className="text-3xl">{booking.place.title}</h1>
@@ -39,6 +54,15 @@ export default function BookingPage() {
         </div>
       </div>
       <PlaceGallery place={booking.place} />
+      <br></br>
+      {id && (
+        <button
+          className="bg-cyan-400 p-2 w-full text-white rounded-2xl"
+          onClick={() => handleDelete(id)}
+        >
+          Delete
+        </button>
+      )}
     </div>
   );
 }
