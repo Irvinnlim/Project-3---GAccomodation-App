@@ -1,6 +1,9 @@
+import { useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { UserContext } from "./UserContext";
 
 export default function AccountNav() {
+  const {user} = useContext(UserContext)
   const { pathname } = useLocation();
   let subpage = pathname.split("/")?.[2];
   if (subpage === undefined) {
@@ -52,7 +55,9 @@ export default function AccountNav() {
         </svg>
         My Bookings
       </Link>
-      <Link className={linkClasses("places")} to={"/account/places"}>
+
+
+      {!user.userType === "user" && (<Link className={linkClasses("places")} to={"/account/places"}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -68,7 +73,8 @@ export default function AccountNav() {
           />
         </svg>
         My Accomodations
-      </Link>
+      </Link>)}
     </nav>
   );
 }
+

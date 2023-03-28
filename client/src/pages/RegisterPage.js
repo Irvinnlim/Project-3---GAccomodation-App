@@ -6,7 +6,10 @@ export default function RegisterPage() {
   const [name, setName] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+
+  const [userType,setUserType] = useState("user")
   const [redirect, setRedirect] = useState(false);
+
 
   async function registerUser(ev) {
     ev.preventDefault();
@@ -15,6 +18,7 @@ export default function RegisterPage() {
         name,
         email,
         password,
+        userType,
       });
       alert("Registration successful. Now you can log in");
       setRedirect(true);
@@ -49,6 +53,15 @@ export default function RegisterPage() {
             value={password}
             onChange={(ev) => setPassword(ev.target.value)}
           />
+          <label>
+          User Type: 
+          </label>
+          <select id="userType" value={userType} 
+            onChange={(ev) => setUserType(ev.target.value)}>
+            <option value="user">User</option>
+            <option value="admin">Admin</option>
+          </select>
+
           <button className="primary">Register</button>
           <div className="text-center py-2 text-gray-500">
             Already have an account?{" "}
