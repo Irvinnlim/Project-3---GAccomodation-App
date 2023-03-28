@@ -56,6 +56,7 @@ export default function AccountNav() {
         My Bookings
       </Link>
 
+
       {!user.userType === "user" && (<Link className={linkClasses("places")} to={"/account/places"}>
         <svg
           xmlns="http://www.w3.org/2000/svg"

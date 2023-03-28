@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import AddressLink from "../AddressLink";
 import BookingDates from "../BookingDates";
 import PlaceGallery from "../PlaceGallery";
@@ -8,6 +8,7 @@ import PlaceGallery from "../PlaceGallery";
 export default function BookingPage() {
   const { id } = useParams();
   const [booking, setBooking] = useState(null);
+  const [redirect, setRedirect] = useState("");
 
   useEffect(() => {
     if (id) {
@@ -22,6 +23,21 @@ export default function BookingPage() {
 
   if (!booking) {
     return "";
+  }
+
+  const handleDelete = (id) => {
+    axios
+      .delete(`/bookings/${id}`)
+      .then(() => {
+        setRedirect("/account/bookings/");
+      })
+      .catch((err) => {
+        throw err;
+      });
+  };
+
+  if (redirect) {
+    return <Navigate to={redirect} />;
   }
 
   return (
@@ -39,6 +55,15 @@ export default function BookingPage() {
         </div>
       </div>
       <PlaceGallery place={booking.place} />
+      <br></br>
+      {id && (
+        <button
+          className="bg-cyan-400 p-2 w-full text-white rounded-2xl"
+          onClick={() => handleDelete(id)}
+        >
+          Delete
+        </button>
+      )}
     </div>
   );
 }
