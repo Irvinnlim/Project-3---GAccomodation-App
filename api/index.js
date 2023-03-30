@@ -35,21 +35,6 @@ mongoose.connection.once("open", () => {
   console.log("connected to mongo");
 });
 
-if (process.env.NODE_ENV === "production") {
-  const path = require("path");
-  app.use(express.static(path.resolve(__dirname, "client", "build")));
-  app.get("*", (req, res) => {
-    res.sendFile(
-      path.resolve(__dirname, "client", "build", "index.html"),
-      function (err) {
-        if (err) {
-          res.status(500).send(err);
-        }
-      }
-    );
-  });
-}
-
 async function uploadToS3(path, originalFilename, mimetype) {
   const client = new S3Client({
     region: "ap-southeast-2",
