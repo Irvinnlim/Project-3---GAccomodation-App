@@ -2,7 +2,7 @@
 
 A booking application with an interactive UI built with React and Mongo. With features for login, registration, listings, etc. 
 
-#### To add in link once generated
+#### https://gaccomodation-app.vercel.app/
 ## Technologies Used
 
 **-** Mongo
@@ -36,24 +36,17 @@ A booking application with an interactive UI built with React and Mongo. With fe
 ## Installation and Setup instruction
 
 #### Clone and Installation:
-Clone down this repository. You will need **npm install** both **api** and **client** folder in different terminal.
+Clone this repository. **npm install** both **api** and **client** folders in separate terminals.
 
 
-#### To Start Server:
+#### To Start Application:
 
-*1)*  npx nodemon for api folder
+*1)* npx nodemon for "api" folder
 
-*2)* npm start for client folder
-
-
-
-## References
-
- - [Building a Full Stack Booking App](https://www.youtube.com/watch?v=MpQbwtSiZ7E)
+*2)* npm start for "client" folder
 
 
-## Future considerations
+## Challenges Faced
 
-Improvements can be made for:
 - To input
 
