@@ -10,7 +10,7 @@ export default function ProfilePage() {
   const { ready, user, setUser } = useContext(UserContext);
   let { subpage } = useParams();
   if (subpage === undefined) {
-    subpage = "profile";
+    subpage = "/";
   }
 
   async function logout() {
