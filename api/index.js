@@ -249,6 +249,7 @@ app.put("/places", async (req, res) => {
 });
 
 app.delete("/places/:id", async (req, res) => {
+  mongoose.connect(process.env.MONGO_URL);
   try {
     const deletedPlace = await Place.findByIdAndRemove(req.params.id);
     res.status(200).send(deletedPlace);
@@ -285,6 +286,7 @@ app.post("/bookings", async (req, res) => {
 });
 
 app.delete("/bookings/:id", async (req, res) => {
+  mongoose.connect(process.env.MONGO_URL);
   try {
     const deletedBooking = await Booking.findByIdAndRemove(req.params.id);
     res.status(200).send(deletedBooking);
