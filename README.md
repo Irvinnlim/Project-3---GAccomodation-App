@@ -47,10 +47,6 @@ Clone down this repository. You will need **npm install** both **api** and **cli
 
 
 
-## References
-
- - [Building a Full Stack Booking App](https://www.youtube.com/watch?v=MpQbwtSiZ7E)
-
 
 ## Future considerations
 
