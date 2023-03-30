@@ -2,7 +2,7 @@
 
 A booking application with an interactive UI built with React and Mongo. With features for login, registration, listings, etc. 
 
-#### https://gaccomodation-app.vercel.app/
+#### https://gaccomodation-app.vercel.app
 ## Technologies Used
 
 **-** Mongo
