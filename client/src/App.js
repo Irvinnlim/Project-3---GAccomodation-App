@@ -13,7 +13,7 @@ import BookingsPage from "./pages/BookingsPage";
 import BookingPage from "./pages/BookingPage";
 import PlacePage from "./pages/PlacePage";
 
-axios.defaults.baseURL = import.meta.env.API_BASE_URL;
+axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL;
 axios.defaults.withCredentials = true;
 
 function App() {
