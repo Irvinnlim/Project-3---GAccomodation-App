@@ -9,8 +9,8 @@ export default function ProfilePage() {
   const [redirect, setRedirect] = useState(null);
   const { ready, user, setUser } = useContext(UserContext);
   let { subpage } = useParams();
-  if (subpage === undefined) {
-    subpage = "/";
+  if (subpage === "account") {
+    subpage = "profile";
   }
 
   async function logout() {
