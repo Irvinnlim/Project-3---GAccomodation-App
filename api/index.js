@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const bcrypt = require("bcryptjs");
+const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("./models/User.js");
 const Place = require("./models/Place.js");
@@ -18,9 +18,7 @@ require("dotenv").config();
 const app = express();
 
 const bucket = "gaccomodation-app";
-const bcryptSalt = bcrypt.genSaltSync(process.env.BCRYPT_SALT);
-
-bcrypt.genSaltSync;
+const bcryptSalt = bcrypt.genSaltSync(parseInt(process.env.BCRYPT_SALT));
 
 app.use(express.json());
 app.use(cookieParser());
