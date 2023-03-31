@@ -18,6 +18,9 @@ require("dotenv").config();
 const app = express();
 
 const bucket = "gaccomodation-app";
+const bcryptSalt = bcrypt.genSaltSync(process.env.BCRYPT_SALT);
+
+bcrypt.genSaltSync;
 
 app.use(express.json());
 app.use(cookieParser());
@@ -79,7 +82,7 @@ app.post("/api/register", async (req, res) => {
     const userDoc = await User.create({
       name,
       email,
-      password: bcrypt.hashSync(password, process.env.bcryptSalt),
+      password: bcrypt.hashSync(password, bcryptSalt),
       userType,
     });
     res.json(userDoc);
