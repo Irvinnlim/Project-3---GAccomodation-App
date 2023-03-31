@@ -79,7 +79,7 @@ app.post("/api/register", async (req, res) => {
     const userDoc = await User.create({
       name,
       email,
-      password: bcrypt.hashSync(password, bcryptSalt),
+      password: bcrypt.hashSync(password, process.env.bcryptSalt),
       userType,
     });
     res.json(userDoc);
