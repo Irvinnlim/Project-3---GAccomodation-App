@@ -76,7 +76,6 @@ function getUserDataFromReq(req) {
 }
 
 app.post("/api/register", async (req, res) => {
-  mongoose.connect(process.env.MONGO_URL);
   const { name, email, password, userType } = req.body;
   try {
     const userDoc = await User.create({
@@ -93,7 +92,6 @@ app.post("/api/register", async (req, res) => {
 });
 
 app.post("/api/login", async (req, res) => {
-  mongoose.connect(process.env.MONGO_URL);
   const { email, password } = req.body;
   const userDoc = await User.findOne({ email });
   if (userDoc) {
@@ -120,7 +118,6 @@ app.post("/api/login", async (req, res) => {
 });
 
 app.get("/api/profile", (req, res) => {
-  mongoose.connect(process.env.MONGO_URL);
   const { token } = req.cookies;
   if (token) {
     jwt.verify(token, process.env.jwtSecret, {}, async (err, userData) => {
@@ -168,7 +165,6 @@ app.post(
 );
 
 app.post("/api/places", (req, res) => {
-  mongoose.connect(process.env.MONGO_URL);
   const { token } = req.cookies;
   const {
     title,
@@ -202,7 +198,6 @@ app.post("/api/places", (req, res) => {
 });
 
 app.get("/api/user-places", (req, res) => {
-  mongoose.connect(process.env.MONGO_URL);
   const { token } = req.cookies;
   jwt.verify(token, process.env.jwtSecret, {}, async (err, userData) => {
     const { id } = userData;
@@ -211,13 +206,11 @@ app.get("/api/user-places", (req, res) => {
 });
 
 app.get("/api/places/:id", async (req, res) => {
-  mongoose.connect(process.env.MONGO_URL);
   const { id } = req.params;
   res.json(await Place.findById(id));
 });
 
 app.put("/api/places", async (req, res) => {
-  mongoose.connect(process.env.MONGO_URL);
   const { token } = req.cookies;
   const {
     id,
@@ -256,7 +249,6 @@ app.put("/api/places", async (req, res) => {
 });
 
 app.delete("/api/places/:id", async (req, res) => {
-  mongoose.connect(process.env.MONGO_URL);
   try {
     const deletedPlace = await Place.findByIdAndRemove(req.params.id);
     res.status(200).send(deletedPlace);
@@ -266,12 +258,10 @@ app.delete("/api/places/:id", async (req, res) => {
 });
 
 app.get("/api/places", async (req, res) => {
-  mongoose.connect(process.env.MONGO_URL);
   res.json(await Place.find());
 });
 
 app.post("/api/bookings", async (req, res) => {
-  mongoose.connect(process.env.MONGO_URL);
   try {
     const userData = await getUserDataFromReq(req);
     const { place, checkIn, checkOut, numberOfGuests, name, phone, price } =
@@ -293,7 +283,6 @@ app.post("/api/bookings", async (req, res) => {
 });
 
 app.delete("/api/bookings/:id", async (req, res) => {
-  mongoose.connect(process.env.MONGO_URL);
   try {
     const deletedBooking = await Booking.findByIdAndRemove(req.params.id);
     res.status(200).send(deletedBooking);
@@ -303,7 +292,6 @@ app.delete("/api/bookings/:id", async (req, res) => {
 });
 
 app.get("/api/bookings", async (req, res) => {
-  mongoose.connect(process.env.MONGO_URL);
   const userData = await getUserDataFromReq(req);
   res.json(await Booking.find({ user: userData.id }).populate("place"));
 });
