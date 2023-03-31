@@ -74,6 +74,6 @@ Creating and deploying a MERN app is a challenging task that requires extensive 
 ## About Us
 
 We are a group of aspiring software developers. This application was built as part of our fullstack project in General Assembly. 
-https://github.com/Irvinnlim
-https://github.com/Louiskok
-https://github.com/Bengyh
+- https://github.com/Irvinnlim
+- https://github.com/Louiskok
+- https://github.com/Bengyh
