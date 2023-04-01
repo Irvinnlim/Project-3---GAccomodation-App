@@ -59,7 +59,7 @@ export default function RegisterPage() {
           <select id="userType" value={userType} 
             onChange={(ev) => setUserType(ev.target.value)}>
             <option value="user">User</option>
-            <option value="admin">Admin</option>
+            <option value="admin">Host</option>
           </select>
 
           <button className="primary">Register</button>
