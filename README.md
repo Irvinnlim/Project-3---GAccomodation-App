@@ -14,6 +14,8 @@ https://gaccomodation-app.vercel.app
 - Node.js
 - Tailwind CSS
 - Material UI
+- Bcrypt for password hashing
+- JWT for token security
 
 ## Project Screenshots
 
